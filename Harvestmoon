@@ -1,0 +1,220 @@
+//Harvestmoon
+//Jeremy Christover - 2101719434
+
+#include<iostream>
+#include<stdlib.h>
+#include<string>
+#include<conio.h>
+#include<unistd.h>
+using namespace std;
+
+class Hm{
+	private:
+		int energy;
+		int happiness;
+		
+	public:
+		string name;
+		int gender;
+		int choice1;
+		int choice2;
+
+		void inputName();
+		mainMenu();
+		subMenu();
+		
+		void setHappiness(int happiness);
+		void setEnergy(int energy);
+		int getHappiness();
+		int getEnergy();
+		
+		void socialize();
+		void harvest();
+		void rest();		
+};
+
+
+void Hm::inputName(){
+	system("cls");
+	setHappiness(100);
+	setEnergy(100);
+	do{
+		cout << "Insert character name [3..20]: ";
+		cin >> name;
+	}while(name.size()<3 || name.size()>20);
+}
+
+
+Hm::mainMenu(){
+	do{
+	cout << "Harvestmoon Mini Console" << endl;
+	cout << "========================" << endl;
+	cout << "1. Male" << endl << "2. Female" << endl << "3. Exit\n";
+	cout << "Choose: ";
+	cin >> choice1;
+	
+	switch(choice1){
+		case 1:
+			inputName();
+			subMenu();
+			break;
+			
+		case 2:
+			inputName();
+			subMenu();
+			break;
+			
+		case 3:
+			break;
+	}
+	}while(choice1 > 3 || choice1 < 1);
+}
+
+
+Hm::subMenu(){
+	system("cls");
+	
+	cout << "Welcome, " << name << endl;
+	cout << "Energy: " << getEnergy() << endl;
+	cout << "Happiness: " << getHappiness() << endl;
+	
+	cout << "1. Socialize\n" << "2. Harvest\n" << "3. Rest\n" << "4. Back To Main Menu" << endl;
+	cout << "Choose: ";
+	cin >> choice2;
+	system("cls");
+	
+	switch(choice2){
+		case 1:
+			socialize();
+			break;
+		case 2:
+			harvest();
+			break;
+		case 3:
+			rest();
+			break;
+		case 4:
+			mainMenu();
+	}
+}
+
+
+int Hm::getEnergy(){
+	return energy;
+}
+
+
+int Hm::getHappiness(){
+	return happiness;
+}
+
+
+void Hm::setHappiness(int happiness){
+	this->happiness = happiness;
+}
+
+
+void Hm::setEnergy(int energy){
+	this->energy = energy;
+}
+
+
+void Hm::socialize(){
+	cout << "Meeting neighbors.";
+	sleep(1);
+	system("cls");
+	cout << "Meeting neighbors..";
+	sleep(1);
+	system("cls");
+	cout << "Meeting neighbors..." << endl;
+	
+	if(getHappiness()==100){
+		setEnergy(getEnergy()-10);
+		cout << "Happiness is full and energy decreased 10" << endl;
+		getch();
+		subMenu();
+	}
+	else if(getEnergy()==0){
+		cout << "You don't have enough energy" << endl;
+		getch();
+		subMenu();
+	}
+	else{
+		setEnergy(getEnergy()-10);
+		setHappiness(getHappiness()+20);
+		cout << "Happiness increased 20 and energy decreased 10" << endl;
+		getch();
+		subMenu();	
+	}
+}
+
+
+void Hm::harvest(){
+	cout << "Harvesting the farm.";
+	sleep(1);
+	system("cls");
+	cout << "Harvesting the farm..";
+	sleep(1);
+	system("cls");
+	cout << "Harvesting the farm..." << endl;
+	
+	if(getHappiness()==0){
+		cout << "You don't have enough happiness... You need to meet your neighbors…" << endl;
+		getch();
+		subMenu();
+	}
+	else if(getEnergy()==0){
+		cout << "You don'0't have enough energy… You need to rest for a while…" << endl;
+		getch();
+		subMenu();	
+	}
+	else{
+		setEnergy(getEnergy()-10);
+		setHappiness(getHappiness()-10);
+		cout << "Happiness decresed 10 and energy decreased 10" << endl;
+		getch();
+		subMenu();
+	}
+}
+
+
+void Hm::rest(){
+	if(getEnergy()==100){
+		cout << "You don't need to rest again" << endl;
+		getch();
+		subMenu();
+	}
+	else if(getEnergy()==90){
+		setEnergy(getEnergy()+10);
+		cout << "Resting.";
+		sleep(1);
+		system("cls");
+		cout << "Resting..";
+		sleep(1);
+		system("cls");
+		cout << "Resting..." << endl;
+		cout << "Energy increased";
+		getch();
+		subMenu();
+	}
+	else{
+		setEnergy(getEnergy()+20);
+		cout << "Resting.";
+		sleep(1);
+		system("cls");
+		cout << "Resting..";
+		sleep(1);
+		system("cls");
+		cout << "Resting..." << endl;
+		cout << "Energy increased 20" << endl;
+		getch();
+		subMenu();
+	}
+}
+
+
+int main(){
+	Hm game;
+	game.mainMenu();
+	return 0;
+}
